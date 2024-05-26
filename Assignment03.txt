@@ -1,0 +1,390 @@
+Qustion 1. Write a shell script to display your LOGIN NAME and HOME directory.
+
+Ans -> 
+	#! /bin/bash
+	
+	echo "Hostname Display"
+	hostname
+	
+	echo "Home Directory Display"
+	ls
+	
+	Output:
+	
+	sunbeam@sunbeam-Inspiron-3593:~/Documents/PERSONAL_DATA/OS/Assignment-03$ bash qes1.sh
+	Login Page Display
+	sunbeam-Inspiron-3593
+	Home Directory
+	sunbeam
+
+********************************************************************************************************************************************************************************
+
+Qustion 2. Write a shell script to display menu like “1. Date, 2. Cal, 3. Ls, 4. Pwd, 5. Exit” and
+	   execute the commands depending on user choice.
+Ans -> 
+	#! /bin/bash
+	
+	choice=1
+	
+	while [ $choice -ne 5 ]
+	do
+	
+	echo "1.Date"
+	echo "2.Cal"
+	echo "3.Ls"
+	echo "4.Pwd"
+	echo "5.Exit"
+
+	echo "Enter Choice"
+	read choice
+
+	case $choice in
+	
+	 1)
+                echo "Display date: "
+                date;;
+        2)
+                echo "Display calender"
+                cal;;
+        3)
+                echo "Display Ls"
+                ls;;
+        4)
+                echo "Display PWD"
+                pwd;;
+        5)
+                echo "Thank You"
+                exit;;
+        *)
+                echo "invalid Choice"
+                ;;
+
+	esac
+	
+	done
+
+		********************************************************************************************************************************************************************************
+Qustion 3. 
+
+Ans -> 	
+	#!/bin/bash
+
+	echo "Enter a file or directory name : "
+	read name
+
+	if [-f "$name"]
+	then
+	echo "$name is a file!"
+	echo "Size of $name : `du -h "$name" | cut -f1`"
+
+	elif [-d "$name"]
+	then
+	echo "$name is a directory"
+	echo "Contents of $name"
+	ls "$name"
+	else
+	echo "$name is not a file or directory"
+
+
+	********************************************************************************************************************************************************************************
+Qustion 4. 
+
+Ans -> 	
+
+	#!/bin/bash
+
+echo "Enter Number :"
+read number
+
+is_prime() {
+num=$1
+if [ $num -lt 2 ]
+then
+return1
+fi
+
+for(( i = 2; i <= $num / 2; i++));
+do
+if [ $((num % i)) -eq 0]; 
+then
+echo "$num is not a prime number"
+return
+fi
+done
+echo "$num is prime number"
+}
+
+is_prime $number
+
+
+
+********************************************************************************************************************************************************************************
+Qustion 5. 
+
+Ans -> 	
+
+	#!/bin/bash
+
+	echo "Enter three number : "
+	read num1
+	read num2
+	read num3
+
+	if [ $num1 -gt $num2 ] && [ $num1 -gt $num3 ] 
+	then
+	echo "$num1 is the greatest"
+	elif [ $num2 -gt $num1 ] && [ $num2 -gt $num3 ]
+	then
+	echo "$num2 is the greatest"
+	else
+	echo "$num3 is the greatest"
+	fi
+
+
+
+********************************************************************************************************************************************************************************
+Qustion 6. 
+
+Ans -> 	
+
+	#!/bin/bash
+
+	echo "Enter the year : "
+	read year
+
+	if [ $((year % 4)) -eq 0 ]
+	then
+	if [ $((year % 100)) -eq 0 ] && [ $((year % 400)) -ne 0 ]
+	then
+	echo "$year is not leap year!"
+	else 
+	echo "$year is a leap year"
+	fi
+	else
+	echo "$year is not a leap year"
+	fi
+	
+	
+	********************************************************************************************************************************************************************************
+Qustion 7. 
+
+Ans -> 
+	#!/bin/bash
+
+	echo "Enter a number : "
+	read number
+
+	if [ $number -gt 0 ]
+	then
+	echo "The number is positive"
+	elif [ $number -lt 0 ]
+	then
+	echo "The number is negative"
+	else
+	echo "The number is zero"
+	fi
+	
+	********************************************************************************************************************************************************************************
+Qustion 8. 
+
+Ans -> 
+	#!/bin/bash
+
+	echo "Enter a number : "
+	read number
+
+	echo "Table of $number"
+
+	for (( i = 1; i <= 10; i++))
+	 do
+	  result=$((number * i))
+	   echo "$number*$i = $result"
+	done
+	
+	********************************************************************************************************************************************************************************
+Qustion 9. 
+
+Ans -> 
+
+	#!/bin/bash
+
+	factorial() {
+		local num=$1
+		local result=1
+
+		for(( i = 1; i <= num; i++ ))
+		do
+			result=$((result * i))
+		done
+
+		echo $result
+	}
+
+	echo "Enter number : "
+	read number
+
+	fact=$(factorial $number)
+	echo "Factorial of $number is $fact"
+
+
+
+********************************************************************************************************************************************************************************
+Qustion 10. 
+
+Ans -> 
+	#!/bin/bash
+
+	fibonacci() {
+		local n=$1
+		local a=0
+		local b=1
+		local count=0
+
+		echo -n "$a $b"
+
+		while [ $count -lt $((n-2)) ]
+		do
+			local next=$((a+b))
+			echo -n "$next"
+			a=$b
+			b=$next
+			count=$((count + 1))
+		done
+	echo ""
+	}
+	echo "Enter the numbers in series :  "
+	read nums
+
+	echo "FIbonacci series :"
+	fibonacci nums
+
+
+********************************************************************************************************************************************************************************
+Qustion 11. 
+
+Ans -> 
+	
+	#!/bin/bash
+
+	cal_sal() {
+		local basic_sal=$1
+		local da=40
+		local hra=20
+
+		local da=$(echo "scale=2; $basic_sal * $da / 100" | bc)
+		local hra=$(echo "scale=2; $basic_sal * $hra / 100" | bc)
+
+		local gross=$(echo "scale=2; $basic_sal + $da +$hra" | bc)
+
+		echo "Gross salary = $gross"
+	}
+
+	echo "Enter basic salary :"
+	read basic_sal
+
+	cal_sal $basic_sal
+
+********************************************************************************************************************************************************************************
+Qustion 12. 
+
+Ans -> 
+
+	#!/bin/bash
+
+	if [ $# -eq 0 ]
+	then
+		echo "Usage : $0 <filename>"
+	exit 1
+	fi
+
+	filename=$1
+
+	if [ -e "$filename" ]
+	then
+		mod_time=$(date -r "$filename" +"%F %T")
+		echo "Last modification time of $filename : $mod_time"
+	else
+		echo "File does not exist"
+	fi	
+
+********************************************************************************************************************************************************************************
+Qustion 13. 
+
+Ans -> 
+
+	#!/bin/bash
+
+	echo "Hidden files in current directory :"
+	ls -a | grep "^\..*"
+
+
+********************************************************************************************************************************************************************************
+Qustion 14. 
+
+Ans -> 
+
+	#!/bin/bash
+
+	echo "Executable files in the current directory : "
+	ls -F | grep '*$'	
+
+
+********************************************************************************************************************************************************************************
+Qustion 15. 
+
+Ans -> 
+
+	#!/bin/bash
+
+	if [ $# -ne 2 ]
+	then
+		echo "Usage : $0 <input_file> <output_file>"
+		exit 1
+	fi
+
+	input_file=$1
+	output_file=$2
+
+	if [ ! -f "$input_file" ]
+	then
+		echo "Input file not found!"
+		exit 1
+	fi
+
+	rev=$(tr '[:upper:][:lower:]' '[:lower:][:upper:]' < "$input_file")
+
+	echo "rev" >> "$output_file"
+
+	echo "Contents appended in reverse case"
+
+********************************************************************************************************************************************************************************
+Qustion 16. 
+
+Ans -> 
+
+	#!/bin/bash
+
+	echo "Welcome to the shell $(whoami)!"
+	echo "Your home contents are :"
+	ls -l "$HOME"
+
+********************************************************************************************************************************************************************************
+Qustion 17. 
+
+Ans -> 
+
+	#!/bin/bash
+
+	rows=5
+
+	for (( i = 1; i <= rows; i++))
+	do
+		for (( j = 1; j <= i; j++))
+		do
+			echo -n "* "
+		done
+		    echo ""
+	done	
+
+
+
